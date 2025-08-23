@@ -5,9 +5,9 @@ metadata:
   labels:
     app: deploy-to-k8s-demo
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   rules:
     - host: sau-portal.de
       http:
