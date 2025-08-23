@@ -35,4 +35,6 @@ runs:
         KUBECONFIG: ${{ github.workspace }}/kubeconfig
       run: |
         kubectl -n ${{ inputs.namespace }} apply -k k8s/
-        kubectl -n ${{ inputs.namespace }} rollout status deploy/app --timeout=3m
+        for d in $(kubectl -n ${{ inputs.namespace }} get deploy -l managed-by=kustomize -o name); do
+          kubectl -n ${{ inputs.namespace }} rollout status "$d" --timeout=3m
+        done
