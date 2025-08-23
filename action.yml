@@ -2,6 +2,11 @@ name: "Deploy to K8S"
 
 description: "Deploys the application to the SAU kubernetes cluster."
 
+inputs:
+  kubeconfig:
+    description: "Kubeconfig contents. Pass your repository or environment secret using: ${{ secrets.KUBECONFIG }}"
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -17,7 +22,7 @@ runs:
     - name: Write kubeconfig
       shell: bash
       run: |
-        printf '%s' "${{ secrets.KUBECONFIG }}" > "$KUBECONFIG"
+        printf '%s' "${{ inputs.kubeconfig }}" > "$KUBECONFIG"
         chmod 600 "$KUBECONFIG"
 
     - name: Deploy manifests to ase-15

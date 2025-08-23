@@ -11,5 +11,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
-      - name: Run the local action
+      - name: Test a deployment
         uses: ./
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
