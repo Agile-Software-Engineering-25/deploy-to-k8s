@@ -4,7 +4,7 @@ description: "Deploys the application to the SAU kubernetes cluster."
 
 inputs:
   kubeconfig:
-    description: "Kubeconfig contents. Pass your repository or environment secret using: ${{ secrets.KUBECONFIG }}"
+    description: "Kubeconfig contents. Pass your repository or environment secret."
     required: true
 
 runs:
