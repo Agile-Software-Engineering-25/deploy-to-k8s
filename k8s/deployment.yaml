@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app
+  name: deploy-to-k8s-demo
   labels:
     app: deploy-to-k8s-demo
 spec:
