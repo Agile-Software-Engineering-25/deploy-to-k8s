@@ -6,6 +6,9 @@ inputs:
   kubeconfig:
     description: "Kubeconfig contents. Pass your repository or environment secret."
     required: true
+  namespace:
+    description: "Kubernetes namespace to deploy to."
+    required: true
 
 runs:
   using: "composite"
@@ -26,10 +29,10 @@ runs:
       run: |
         printf '%s' "${{ inputs.kubeconfig }}" > "$KUBECONFIG"
 
-    - name: Deploy manifests to ase-15
+    - name: Deploy manifests to ${{ inputs.namespace }}
       shell: bash
       env:
         KUBECONFIG: ${{ github.workspace }}/kubeconfig
       run: |
-        kubectl -n ase-15 apply -f k8s/
-        kubectl -n ase-15 rollout status deploy/app
+        kubectl -n ${{ inputs.namespace }} apply -k k8s/
+        kubectl -n ${{ inputs.namespace }} rollout status deploy/app --timeout=3m
