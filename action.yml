@@ -21,12 +21,15 @@ runs:
 
     - name: Write kubeconfig
       shell: bash
+      env:
+        KUBECONFIG: ${{ github.workspace }}/kubeconfig
       run: |
         printf '%s' "${{ inputs.kubeconfig }}" > "$KUBECONFIG"
-        chmod 600 "$KUBECONFIG"
 
     - name: Deploy manifests to ase-15
       shell: bash
+      env:
+        KUBECONFIG: ${{ github.workspace }}/kubeconfig
       run: |
         kubectl -n ase-15 apply -f k8s/
         kubectl -n ase-15 rollout status deploy/app
