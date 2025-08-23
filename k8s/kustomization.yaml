@@ -16,7 +16,7 @@ commonLabels:
 namePrefix: "ase-"
 
 replicas:
-  - name: app
+  - name: deploy-to-k8s-demo
     count: 2
 
 images:
