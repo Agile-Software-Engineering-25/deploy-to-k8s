@@ -2,11 +2,6 @@ name: "Deploy to K8S"
 
 description: "Deploys the application to the SAU kubernetes cluster."
 
-inputs:
-  node-version:
-    description: "The Node.js version to use"
-    required: true
-
 runs:
   using: "composite"
   steps:

@@ -1,0 +1,14 @@
+name: Test deploy-to-k8s
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Run the local action
+        uses: ./
