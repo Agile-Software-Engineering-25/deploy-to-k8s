@@ -49,7 +49,7 @@ runs:
         done
     
     - name: Set deployment image dynamically
-      if: ${{ inputs.image != '' && inputs.tag != '' }}
+      if: ${{ inputs.image != '' && inputs.tag != '' && inputs.deployment != '' }}
       shell: bash
       env:
         KUBECONFIG: ${{ github.workspace }}/kubeconfig
