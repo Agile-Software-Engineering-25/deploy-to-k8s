@@ -11,13 +11,13 @@ inputs:
     required: true
   image:
     description: "Docker image repository (without tag)."
-    required: true
+    required: false
   tag:
     description: "Docker image tag to deploy."
-    required: true
+    required: false
   deployment:
     description: "Kubernetes Deployment name to update"
-    required: true
+    required: false
 
 runs:
   using: "composite"
@@ -57,3 +57,4 @@ runs:
         kubectl -n ${{ inputs.namespace }} set image deployment/${{ inputs.deployment }} \
           app=${{ inputs.image }}:${{ inputs.tag }}
         kubectl -n ${{ inputs.namespace }} rollout status deployment/${{ inputs.deployment }} --timeout=3m
+        
