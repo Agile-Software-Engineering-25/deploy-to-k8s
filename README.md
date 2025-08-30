@@ -33,10 +33,13 @@ jobs:
 
 ## Inputs
 
-| Input        | Description                                                                      | Required | Default |
-| ------------ | -------------------------------------------------------------------------------- | -------- | ------- |
-| `kubeconfig` | Kubeconfig contents. Pass your repository secret containing the kubeconfig YAML. | Yes      | -       |
-| `namespace`  | Kubernetes namespace to deploy to.                                               | Yes      | -       |
+| Input        | Description                                                                               | Required | Default |
+| ------------ | ----------------------------------------------------------------------------------------- | -------- | ------- |
+| `kubeconfig` | Kubeconfig contents. Pass your repository secret containing the kubeconfig YAML.          | Yes      | -       |
+| `namespace`  | Kubernetes namespace to deploy to.                                                        | Yes      | -       |
+| `image`      | The Image Name which is supposed to be used (used to dynamically override the k8s config) | No       | -       |
+| `tag`        | The Image Tag which is supposed to be used (used to dynamically override the k8s config)  | No       | -       |
+| `deployment` | The Kubernetes Namespace which is supposed to be deployed to (needed for dynamic override)| No       | -       |
 
 ## Secrets Setup
 
