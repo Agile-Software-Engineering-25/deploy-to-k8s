@@ -9,6 +9,15 @@ inputs:
   namespace:
     description: "Kubernetes namespace to deploy to."
     required: true
+  image:
+    description: "Docker image repository (without tag)."
+    required: false
+  tag:
+    description: "Docker image tag to deploy."
+    required: false
+  deployment:
+    description: "Kubernetes Deployment name to update"
+    required: false
 
 runs:
   using: "composite"
@@ -38,3 +47,14 @@ runs:
         for d in $(kubectl -n ${{ inputs.namespace }} get deploy -l managed-by=kustomize -o name); do
           kubectl -n ${{ inputs.namespace }} rollout status "$d" --timeout=3m
         done
+    
+    - name: Set deployment image dynamically
+      if: ${{ inputs.image != '' && inputs.tag != '' && inputs.deployment != '' }}
+      shell: bash
+      env:
+        KUBECONFIG: ${{ github.workspace }}/kubeconfig
+      run: |
+        kubectl -n ${{ inputs.namespace }} set image deployment/${{ inputs.deployment }} \
+          app=${{ inputs.image }}:${{ inputs.tag }}
+        kubectl -n ${{ inputs.namespace }} rollout status deployment/${{ inputs.deployment }} --timeout=3m
+        
