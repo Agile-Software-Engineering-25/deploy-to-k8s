@@ -1,0 +1,11 @@
+# Prepare new release
+
+If new a new version of the workflow should be published.
+
+1. create a new release in github and give it a appropriate semantic versioning name
+2. let the `v1` tag point to the new version
+
+```bash
+git tag v1 <newly-created-version>
+git push origin v1
+```
