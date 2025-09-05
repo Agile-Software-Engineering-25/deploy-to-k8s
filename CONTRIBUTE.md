@@ -2,7 +2,7 @@
 
 If a new version of the workflow should be published.
 
-1. create a new release in github and give it a appropriate semantic versioning name
+1. Create a new release in GitHub and give it an appropriate semantic versioning name
 2. let the `v1` tag point to the new version
 
 ```bash
