@@ -18,6 +18,10 @@ inputs:
   deployment:
     description: "Kubernetes Deployment name to update"
     required: false
+  additional-args:
+    description: "Additional arguments to pass to kubectl apply command."
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -43,11 +47,11 @@ runs:
       env:
         KUBECONFIG: ${{ github.workspace }}/kubeconfig
       run: |
-        kubectl -n ${{ inputs.namespace }} apply -k k8s/
+        kubectl -n ${{ inputs.namespace }} apply -k k8s/ ${{ inputs.additional-args }}
         for d in $(kubectl -n ${{ inputs.namespace }} get deploy -l managed-by=kustomize -o name); do
           kubectl -n ${{ inputs.namespace }} rollout status "$d" --timeout=3m
         done
-    
+
     - name: Set deployment image dynamically
       if: ${{ inputs.image != '' && inputs.tag != '' && inputs.deployment != '' }}
       shell: bash
@@ -57,4 +61,3 @@ runs:
         kubectl -n ${{ inputs.namespace }} set image deployment/${{ inputs.deployment }} \
           app=${{ inputs.image }}:${{ inputs.tag }}
         kubectl -n ${{ inputs.namespace }} rollout status deployment/${{ inputs.deployment }} --timeout=3m
-        
